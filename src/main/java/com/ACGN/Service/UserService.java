@@ -7,8 +7,8 @@ import com.ACGN.util.MailClient;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
-import org.thymeleaf.TemplateEngine;
-import org.thymeleaf.context.Context;
+//import org.thymeleaf.TemplateEngine;
+//import org.thymeleaf.context.Context;
 
 import java.util.Date;
 import java.util.HashMap;
@@ -18,8 +18,8 @@ import java.util.Random;
 public class UserService {
     @Autowired
     private UserMapper userMapper;
-    @Autowired
-    private TemplateEngine templateEngine;
+//    @Autowired
+//    private TemplateEngine templateEngine;
     @Autowired
     private MailClient mailClient;
     /**
@@ -73,13 +73,13 @@ public class UserService {
         user.setHeaderUrl(String.format("http://images.nowvoder.com/head/%dt.png",new Random().nextInt(1000)));
         user.setCreateTime(new Date());
         userMapper.insertUser(user);
-        //激活邮件
-        Context context=new Context();
-        context.setVariable("email",user.getEmail());
-        String url=domain+contextPath+"/activation/"+user.getId()+"/"+user.getActivationCode();
-        context.setVariable("url",url);
-        String content=templateEngine.process("/mail/activation",context);
-        mailClient.sendMail(user.getEmail(),"激活账号",content);
+//        //激活邮件
+//        Context context=new Context();
+//        context.setVariable("email",user.getEmail());
+//        String url=domain+contextPath+"/activation/"+user.getId()+"/"+user.getActivationCode();
+//        context.setVariable("url",url);
+//        String content=templateEngine.process("/mail/activation",context);
+//        mailClient.sendMail(user.getEmail(),"激活账号",content);
         return map;
     }
 

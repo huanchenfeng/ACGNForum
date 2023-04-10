@@ -4,8 +4,9 @@ import lombok.Data;
 
 import java.util.Date;
 @Data
-public class home {
-    private int id;
+public class Discusspost {
+
+    private int discusspostId;
     private String userId;
     private String title;
     private String content;
