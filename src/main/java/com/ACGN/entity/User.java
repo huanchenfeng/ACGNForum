@@ -17,4 +17,5 @@ public class User {
     private String activationCode;  //激活码
     private String headerUrl;
     private Date createTime;
+    private int phone;
 }

@@ -8,4 +8,5 @@ import org.springframework.stereotype.Service;
 
 @Service
 public class TopService extends ServiceImpl<DiscussPostMapper, Discusspost> implements DiscussPostService {
+
 }
