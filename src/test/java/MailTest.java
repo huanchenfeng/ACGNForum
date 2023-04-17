@@ -10,6 +10,7 @@ import org.junit.runner.RunWith;
 import org.mybatis.spring.annotation.MapperScan;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.TestPropertySource;
 import org.springframework.test.context.junit4.SpringRunner;
@@ -32,7 +33,9 @@ public class MailTest {
 
     @Test
     public void testTextMail(){
-        mailClient.sendMail("******@******.edu.cn","TEST","Welcome.");
+        BCryptPasswordEncoder encoder=new BCryptPasswordEncoder();
+        System.out.println(encoder.encode("123456"));
+//        mailClient.sendMail("******@******.edu.cn","TEST","Welcome.");
     }
     @Test
     public void testselect(){
