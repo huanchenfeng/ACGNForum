@@ -23,9 +23,11 @@ public class UserDetailsServiceImpl implements UserDetailsService {
         }
         User user=userMapper.selectOne(queryWrapper);
         if (user==null){
-            throw new UsernameNotFoundException("用户名或密碼錯誤");
+            throw new UsernameNotFoundException("用户名或密码错误");
         }
         return org.springframework.security.core.userdetails.User.withUsername(user.getUsername()).password(user.getPassword()).roles("User").build();
 
     }
+
+
 }

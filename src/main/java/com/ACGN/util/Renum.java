@@ -9,7 +9,7 @@ public enum Renum {
     SUCCESS(200,"成功"),
     USER_NOT_EXIST(1,"用户不存在"),
     USER_IS_EXISTS(2,"用户已存在"),
-    DATA_IS_NULL(3,"数据为空"),
+    DATA_IS_NULL(400,"数据为空"),
     PASSWORD_ERROR(401,"账号或密码错误")
             ;
 

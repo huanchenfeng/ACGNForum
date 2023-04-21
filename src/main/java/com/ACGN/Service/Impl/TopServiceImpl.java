@@ -7,6 +7,6 @@ import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import org.springframework.stereotype.Service;
 
 @Service
-public class TopService extends ServiceImpl<DiscussPostMapper, Discusspost> implements DiscussPostService {
+public class TopServiceImpl extends ServiceImpl<DiscussPostMapper, Discusspost> implements DiscussPostService {
 
 }

@@ -1,21 +1,21 @@
-import com.ACGN.controller.DiscussPostController;
-import com.ACGN.controller.TopDiscussPostController;
+import com.ACGN.Service.DiscussPostService;
 import com.ACGN.dao.UserMapper;
+import com.ACGN.entity.Discusspost;
 import com.ACGN.entity.User;
 import com.ACGN.util.MailClient;
 import com.DemoApplication;
-import org.junit.Assert;
+import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
+import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import org.junit.Test;
 import org.junit.runner.RunWith;
-import org.mybatis.spring.annotation.MapperScan;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.test.context.ContextConfiguration;
-import org.springframework.test.context.TestPropertySource;
 import org.springframework.test.context.junit4.SpringRunner;
 
 
+import java.util.HashMap;
 import java.util.List;
 
 @RunWith(SpringRunner.class)
@@ -29,12 +29,36 @@ public class MailTest {
     @Autowired
     private UserMapper userMapper;
     @Autowired
-    private TopDiscussPostController topDiscussPostController;
+    private DiscussPostService discussPostService;
 
     @Test
     public void testTextMail(){
         BCryptPasswordEncoder encoder=new BCryptPasswordEncoder();
         System.out.println(encoder.encode("123456"));
+        Page<Discusspost> classifiedPage;
+        /**
+         * 置顶帖的数量
+         */
+        int sum=0;
+        QueryWrapper queryWrapperOne=new QueryWrapper();
+        queryWrapperOne.eq("type",1);
+        queryWrapperOne.eq("status",1);
+        queryWrapperOne.orderByDesc("create_time");
+        HashMap map=new HashMap();
+        List<Discusspost>list=discussPostService.list(queryWrapperOne);
+        sum=list.size();
+        QueryWrapper queryWrapperTwo=new QueryWrapper();
+        queryWrapperTwo.eq("type",1);
+        queryWrapperTwo.eq("status",1);
+        queryWrapperTwo.orderByDesc("status");
+        Page<Discusspost> pageTwo=new Page<>();
+        pageTwo.setCurrent(1);
+        pageTwo.setSize(10-sum);
+        classifiedPage=discussPostService.page(pageTwo,queryWrapperTwo);
+        map.put("normal",classifiedPage);
+        map.put("top",list);
+        System.out.println(map.toString());
+        System.out.println(classifiedPage.toString());
 //        mailClient.sendMail("******@******.edu.cn","TEST","Welcome.");
     }
     @Test
@@ -51,14 +75,7 @@ public class MailTest {
             userList.forEach(System.out::println);
 
         }
-        @Test
-        public void testSelect1() {
-        System.out.println(("----- selectAll method test ------"));
-        //参数是一个Wrapper，条件结构器，这里先不用 填null
-        //查询所有的用户
-            topDiscussPostController.wrapper(1);
 
-    }
     }
 
 

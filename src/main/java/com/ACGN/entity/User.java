@@ -18,8 +18,6 @@ public class User implements UserDetails {
 
     private String password;
 
-    private String salt;   //密码盐值
-
     private String email;
 
     private int type;
@@ -32,7 +30,7 @@ public class User implements UserDetails {
 
     private Date createTime;
 
-    private int phone;
+    private String phone;
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
