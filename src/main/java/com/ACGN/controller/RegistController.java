@@ -1,5 +1,6 @@
 package com.ACGN.controller;
 
+import com.ACGN.Service.AuthorizeService;
 import com.ACGN.Service.Impl.UserServiceImpl;
 import com.ACGN.Service.UserService;
 import com.ACGN.entity.User;
@@ -9,19 +10,27 @@ import com.ACGN.util.Renum;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
+import org.springframework.mail.MailSender;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.*;
 
+import javax.annotation.Resource;
+import javax.servlet.http.HttpSession;
+import javax.validation.constraints.Pattern;
 import java.util.Date;
 
 @Controller
 public class RegistController {
+
+    private  final String EMAIL_REGEX="^[a-zA-Z0-9_.-]+@[a-zA-Z0-9-]+(\\.[a-zA-Z0-9-]+)*\\.[a-zA-Z0-9]{2,6}$";
+
     @Autowired
     private UserServiceImpl userService;
+    @Autowired
+    private AuthorizeService authorizeService;
+
 
     @PostMapping("/regist")
     @ResponseBody
@@ -96,8 +105,10 @@ public class RegistController {
 
     @PostMapping("/regist/valid-email")
     @ResponseBody
-    public R validateEmail(String email){
-        if(userService.sendValidateEmail(email)){
+    public R validateEmail(@Pattern(regexp = EMAIL_REGEX) String email,HttpSession session){
+        System.out.println(email);
+        if(authorizeService.sendValidateEmail(email,session.getId())){
+
             return RUtils.success();
         }
         else{

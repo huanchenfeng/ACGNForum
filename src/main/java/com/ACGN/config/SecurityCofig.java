@@ -1,6 +1,7 @@
 package com.ACGN.config;
 
 
+import com.ACGN.Service.AuthorizeService;
 import com.ACGN.Service.UserService;
 import com.ACGN.util.R;
 import com.ACGN.util.RUtils;
@@ -35,7 +36,7 @@ import java.io.IOException;
 @EnableWebSecurity
 public class SecurityCofig {
     @Autowired
-    UserDetailsService userService;
+    AuthorizeService userService;
     @Resource
     DataSource dataSource;
     @Bean

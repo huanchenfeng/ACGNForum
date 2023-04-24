@@ -1,8 +1,7 @@
 import com.ACGN.Service.DiscussPostService;
 import com.ACGN.dao.UserMapper;
-import com.ACGN.entity.Discusspost;
+import com.ACGN.entity.DiscussPost;
 import com.ACGN.entity.User;
-import com.ACGN.util.MailClient;
 import com.DemoApplication;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
@@ -23,8 +22,6 @@ import java.util.List;
 @ContextConfiguration(classes = DemoApplication.class)
 
 public class MailTest {
-    @Autowired
-    public MailClient mailClient;
 
     @Autowired
     private UserMapper userMapper;
@@ -35,7 +32,7 @@ public class MailTest {
     public void testTextMail(){
         BCryptPasswordEncoder encoder=new BCryptPasswordEncoder();
         System.out.println(encoder.encode("123456"));
-        Page<Discusspost> classifiedPage;
+        Page<DiscussPost> classifiedPage;
         /**
          * 置顶帖的数量
          */
@@ -45,13 +42,13 @@ public class MailTest {
         queryWrapperOne.eq("status",1);
         queryWrapperOne.orderByDesc("create_time");
         HashMap map=new HashMap();
-        List<Discusspost>list=discussPostService.list(queryWrapperOne);
+        List<DiscussPost>list=discussPostService.list(queryWrapperOne);
         sum=list.size();
         QueryWrapper queryWrapperTwo=new QueryWrapper();
         queryWrapperTwo.eq("type",1);
         queryWrapperTwo.eq("status",1);
         queryWrapperTwo.orderByDesc("status");
-        Page<Discusspost> pageTwo=new Page<>();
+        Page<DiscussPost> pageTwo=new Page<>();
         pageTwo.setCurrent(1);
         pageTwo.setSize(10-sum);
         classifiedPage=discussPostService.page(pageTwo,queryWrapperTwo);
@@ -61,10 +58,7 @@ public class MailTest {
         System.out.println(classifiedPage.toString());
 //        mailClient.sendMail("******@******.edu.cn","TEST","Welcome.");
     }
-    @Test
-    public void testselect(){
-        mailClient.sendMail("******@******.edu.cn","TEST","Welcome.");
-    }
+
 
         @Test
         public void testSelect() {

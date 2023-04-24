@@ -12,14 +12,5 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, User> implements Us
    public UserMapper userMapper;
 
 
-    public boolean sendValidateEmail(String email){
-        /**
-         * 1.生成相关验证码
-         * 2.吧邮箱和对应的验证码放进Redis(过期时间三分钟)
-         * 3.发送验证码到指定邮箱
-         * 4.发送失败吧Redis中的验证码删除
-         * 5.注册时取出键值对，查看验证码
-         */
-        return  false;
-    }
+
 }
