@@ -1,7 +1,9 @@
 package com.ACGN.controller;
 
+import com.ACGN.Dto.ClassificationDto;
 import com.ACGN.Dto.DiscussPostDto;
 import com.ACGN.Service.DiscussPostService;
+import com.ACGN.Service.UserService;
 import com.ACGN.entity.DiscussPost;
 import com.ACGN.util.R;
 import com.ACGN.util.RUtils;
@@ -20,18 +22,21 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 @Controller
 public class DiscussPostController {
     @Autowired
     private DiscussPostService discussPostService;
+    @Autowired
+    private UserService userService;
 
     /**
      * 讨论帖分类
      * @param type
      * @return
      */
-    @GetMapping("/classified")
+    @GetMapping("/classifiedDetails")
     @ResponseBody
     public R ClassifiedPost(int type,int current){
         Page<DiscussPost> classifiedPage;
@@ -63,9 +68,9 @@ public class DiscussPostController {
     }
 
 
-    @GetMapping("/top")
+    @PostMapping("/top")
     @ResponseBody
-    public R top(int current) {
+    public R top(Integer current) {
         Page<DiscussPost> page=new Page<>();
         page.setCurrent(current);
         page.setSize(10);
@@ -84,10 +89,11 @@ public class DiscussPostController {
     public R addDiscussPost(@RequestBody DiscussPostDto discussPostDto) {
         DiscussPost discussPost=new DiscussPost();
         System.out.println(discussPostDto.toString());
-        if(discussPostDto.getUserId()==null||discussPostDto.getContent()==null||discussPostDto.getTitle()==null){
+        if(discussPostDto.getUserId()==0||discussPostDto.getContent()==null||discussPostDto.getTitle()==null){
             return RUtils.Err(400,"数据为空");
         }
         discussPost.setUserId(discussPostDto.getUserId());
+        discussPost.setUsername(userService.getById(discussPost.getUserId()).getUsername());
         discussPost.setContent(discussPostDto.getContent());
         discussPost.setTitle(discussPostDto.getTitle());
         discussPost.setCommentCount(0);
@@ -98,5 +104,15 @@ public class DiscussPostController {
         discussPost.setScore(0);
         discussPostService.save(discussPost);
         return RUtils.success();
+    }
+
+    @PostMapping("/classification")
+    @ResponseBody
+    public R classification() {
+       QueryWrapper queryWrapper=new QueryWrapper();
+       queryWrapper.groupBy("type");
+       queryWrapper.select("type,count(*) as sum");
+       queryWrapper.eq("status",0);
+       return RUtils.success(discussPostService.listMaps(queryWrapper));
     }
 }

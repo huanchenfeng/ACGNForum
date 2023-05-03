@@ -6,6 +6,7 @@ import lombok.Data;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
+import java.text.SimpleDateFormat;
 import java.util.Collection;
 import java.util.Date;
 @Data
@@ -31,6 +32,20 @@ public class User implements UserDetails {
     private Date createTime;
 
     private String phone;
+
+
+    public void setCreateTime(Date createTime) {
+        this.createTime = createTime;
+    }
+
+    public String getCreateTime(){
+        String time = null;
+        Date date=this.createTime;
+        SimpleDateFormat dateformat = new SimpleDateFormat("yyyy/MM/dd HH:mm:ss");
+        time = dateformat.format(date);
+
+        return time;
+    }
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {

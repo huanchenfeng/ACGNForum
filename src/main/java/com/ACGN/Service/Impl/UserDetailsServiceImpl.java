@@ -59,7 +59,7 @@ public class UserDetailsServiceImpl implements AuthorizeService {
             }
         }
         Random random=new Random();
-        int code=random.nextInt(89999)+10000;
+        int code=random.nextInt(899999)+10000;
         SimpleMailMessage message=new SimpleMailMessage();
         message.setFrom(from);
         message.setTo(email);
