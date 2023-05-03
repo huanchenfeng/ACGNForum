@@ -36,16 +36,17 @@ public class DiscussPostController {
      * @param type
      * @return
      */
-    @GetMapping("/classifiedDetails")
+    @PostMapping("/classifiedDetails")
     @ResponseBody
-    public R ClassifiedPost(int type,int current){
+    public R ClassifiedPost(String type,int current){
+        int Type=Integer.parseInt(type);
         Page<DiscussPost> classifiedPage;
         /**
          * 置顶帖的数量
          */
         int sum=0;
         QueryWrapper queryWrapperOne=new QueryWrapper();
-        queryWrapperOne.eq("type",type);
+        queryWrapperOne.eq("type",Type);
         queryWrapperOne.eq("status",1);
         queryWrapperOne.orderByDesc("create_time");
         HashMap map=new HashMap();
