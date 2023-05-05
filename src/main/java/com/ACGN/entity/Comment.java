@@ -7,13 +7,15 @@ import java.util.Date;
 public class Comment {
     private int commentId;
 
-    private String userId;
+    private int userId;
 
     private String username;
 
-    private String discusspostId;
+    private String content;
 
-    private String reply;
+    private int discusspostId;
+
+    private int reply;
     /**
      * 上一级帖子Id
      **/
