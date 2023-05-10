@@ -15,4 +15,14 @@ public class UserInfoDto {
     private String headerUrl;
 
     private String phone;
+
+    private String sex;
+
+    private String dress;
+
+    private String signature;
+
+    private String createTime;
+
+    private int author;
 }

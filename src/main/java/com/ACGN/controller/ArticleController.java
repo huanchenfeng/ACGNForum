@@ -7,6 +7,7 @@ import com.ACGN.entity.Article;
 import com.ACGN.util.R;
 import com.ACGN.util.RUtils;
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
+import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.core.toolkit.Wrappers;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -69,5 +70,15 @@ public class ArticleController {
         int id=Integer.parseInt(articleId);
         Article article=articleService.getById(id);
         return RUtils.success(article);
+    }
+
+    @PostMapping("/article")
+    @ResponseBody
+    public R articleType() {
+        QueryWrapper queryWrapper=new QueryWrapper();
+        queryWrapper.groupBy("type");
+        queryWrapper.select("type,count(*) as sum");
+        queryWrapper.eq("status",0);
+        return RUtils.success(articleService.listMaps(queryWrapper));
     }
 }

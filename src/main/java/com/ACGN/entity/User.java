@@ -33,6 +33,13 @@ public class User implements UserDetails {
 
     private String phone;
 
+    private String sex;
+
+    private String dress;
+
+    private String signature;
+
+    private int author;
 
     public void setCreateTime(Date createTime) {
         this.createTime = createTime;

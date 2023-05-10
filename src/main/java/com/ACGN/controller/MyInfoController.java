@@ -20,16 +20,20 @@ public class MyInfoController {
     private UserService userService;
     @PostMapping("/myInfo")
     @ResponseBody
-    public R selectMyInfo(String username){
-        QueryWrapper queryWrapper=new QueryWrapper();
-        queryWrapper.eq("username",username);
-        User user=userService.getOne(queryWrapper);
+    public R selectMyInfo(String userId){
+        int id =Integer.parseInt(userId);
+        User user=userService.getById(id);
         UserInfoDto userInfo=new UserInfoDto();
+        userInfo.setCreateTime(user.getCreateTime());
         userInfo.setUsername(user.getUsername());
         userInfo.setPhone(user.getPhone());
         userInfo.setEmail(user.getEmail());
         userInfo.setActivationCode(user.getActivationCode());
         userInfo.setHeaderUrl(user.getHeaderUrl());
+        userInfo.setSex(user.getSex());
+        userInfo.setDress(user.getDress());
+        userInfo.setSignature(user.getSignature());
+        userInfo.setAuthor(user.getAuthor());
         return RUtils.success(userInfo);
     }
 }
