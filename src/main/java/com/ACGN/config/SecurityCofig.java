@@ -42,7 +42,7 @@ public class SecurityCofig {
     @Bean
     public SecurityFilterChain filterChain(HttpSecurity http) throws Exception{
     return http.authorizeHttpRequests()
-            .antMatchers("/regist/**","/classified","/index","/classification")
+            .antMatchers("/regist/**","/classified","/index","/classification","/images/**")
             .permitAll()
             .anyRequest()
             .authenticated()
@@ -90,7 +90,8 @@ public class SecurityCofig {
     private void onAuthenticationSuccess(HttpServletRequest request, HttpServletResponse response, Authentication authentication) throws IOException{
         response.setCharacterEncoding("utf-8");
         if(request.getRequestURI().endsWith("/login")){
-        response.getWriter().write(JSONObject.toJSONString(RUtils.success("12")));}
+            response.getWriter().write(JSONObject.toJSONString(RUtils.success(authentication.getName())));}
+
         else if(request.getRequestURI().endsWith("/logout")){
             R r=new R();
             r.setCode(200);

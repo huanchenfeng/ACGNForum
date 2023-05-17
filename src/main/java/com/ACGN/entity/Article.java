@@ -30,4 +30,8 @@ public class Article {
     private String title;
 
     private String synopsis;
+
+    private int readCount;
+
+    private String headerUrl;
 }

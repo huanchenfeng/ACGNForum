@@ -1,13 +1,13 @@
-package com.ACGN.entity;
+package com.ACGN.Dto;
 
-import com.baomidou.mybatisplus.annotation.IdType;
-import com.baomidou.mybatisplus.annotation.TableId;
+import com.ACGN.entity.Comment;
 import lombok.Data;
 
 import java.util.Date;
+import java.util.List;
+
 @Data
-public class Comment {
-    @TableId(value = "comment_id", type = IdType.AUTO)
+public class CommentDto {
     private int commentId;
 
     private int userId;
@@ -18,11 +18,16 @@ public class Comment {
 
     private String replyNickName;
 
-    private int type;
+    private String content;
 
+    private int type;
+    /**
+     * 回复的文章或论坛帖子Id
+     * **/
     private int discusspostId;
 
-    private String content;
+    private int status;
+
     /**
      * 上一级帖子Id
      **/
@@ -30,9 +35,9 @@ public class Comment {
 
     private Date createTime;
 
-    private int status;
+    private int topType;
 
     private String headerUrl;
 
-    private int topType;
+    List<CommentDto> children;
 }

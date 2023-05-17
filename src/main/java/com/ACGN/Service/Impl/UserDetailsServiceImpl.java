@@ -10,6 +10,7 @@ import org.springframework.data.redis.core.StringRedisTemplate;
 import org.springframework.mail.MailException;
 import org.springframework.mail.MailSender;
 import org.springframework.mail.SimpleMailMessage;
+import org.springframework.security.core.Authentication;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
@@ -39,7 +40,7 @@ public class UserDetailsServiceImpl implements AuthorizeService {
         if (user==null){
             throw new UsernameNotFoundException("用户名或密码错误");
         }
-        return org.springframework.security.core.userdetails.User.withUsername(user.getUsername()).password(user.getPassword()).roles("User").build();
+        return org.springframework.security.core.userdetails.User.withUsername(String.valueOf(user.getId())).password(user.getPassword()).roles("User").build();
 
     }
     /**
