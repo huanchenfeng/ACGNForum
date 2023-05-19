@@ -243,6 +243,7 @@ public class ArticleController {
         try {
             // 获取保存路径
             String path = getSavePath();
+            System.out.println(path+"-----------------------------------------------------------------------------------------------------------");
             File files = new File(path, fileName);
             File parentFile = files.getParentFile();
             if (!parentFile.exists()) {
