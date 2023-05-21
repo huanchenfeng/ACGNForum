@@ -42,7 +42,7 @@ public class RegistController {
             BCryptPasswordEncoder encoder=new BCryptPasswordEncoder();
             user.setPassword(encoder.encode(user.getPassword()));
             user.setActivationCode("1111");
-            user.setHeaderUrl("11111");
+            user.setHeaderUrl("http://localhost:8080/ACGN/images/de.jpg");
             user.setCreateTime(new Date());
         if (userService.save(user)){
             return RUtils.success();}

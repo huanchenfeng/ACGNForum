@@ -1,7 +1,9 @@
 package com.ACGN.controller;
 
 import com.ACGN.Dto.UserInfoDto;
+import com.ACGN.Service.ArticleService;
 import com.ACGN.Service.UserService;
+import com.ACGN.entity.Article;
 import com.ACGN.entity.User;
 import com.ACGN.util.R;
 import com.ACGN.util.RUtils;
@@ -20,12 +22,15 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import java.io.IOException;
 import java.util.HashMap;
+import java.util.List;
 
 @Controller
 @RequestMapping("/user")
 public class MyInfoController {
     @Autowired
     private UserService userService;
+    @Autowired
+    private ArticleService articleService;
     @PostMapping("/myInfo")
     @ResponseBody
     public R selectMyInfo(String userId) throws IOException {
@@ -44,5 +49,16 @@ public class MyInfoController {
         userInfo.setAuthor(user.getAuthor());
         userInfo.setHeaderUrl(user.getHeaderUrl());
         return RUtils.success(userInfo);
+    }
+
+    @PostMapping("/myAricle")
+    @ResponseBody
+    public R myAricle(String userId) throws IOException {
+
+        int id =Integer.parseInt(userId);
+        QueryWrapper queryWrapper=new QueryWrapper();
+        queryWrapper.eq("user_id",id);
+        List<Article> articleList= articleService.list(queryWrapper);
+        return RUtils.success(articleList);
     }
 }

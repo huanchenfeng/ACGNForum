@@ -137,9 +137,12 @@ public class ArticleController {
 
     @PostMapping("/articleComment")
     @ResponseBody
-    public R articleComment(String articleId,int current) {
+    public R articleComment(String articleId,Integer current) {
         int ArticleId=Integer.parseInt(articleId);
         Page<Comment> page=new Page<>();
+        if(current==null){
+            current=1;
+        }
         page.setCurrent(current);
         page.setSize(10);
         QueryWrapper queryWrapper=new QueryWrapper();
