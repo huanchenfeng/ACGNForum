@@ -144,7 +144,7 @@ public class ArticleController {
             current=1;
         }
         page.setCurrent(current);
-        page.setSize(10);
+        page.setSize(100);
         QueryWrapper queryWrapper=new QueryWrapper();
         queryWrapper.eq("status",0);
         queryWrapper.eq("type",1);

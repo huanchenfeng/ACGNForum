@@ -29,4 +29,8 @@ public class DiscussPost {
     private Date createTime;
 
     private int discusspostType;
+
+    private String headerUrl;
+
+    private int readCount;
 }

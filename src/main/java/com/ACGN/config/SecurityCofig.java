@@ -55,11 +55,11 @@ public class SecurityCofig {
             .logout()
             .logoutUrl("/logout")
             .logoutSuccessHandler(this::onAuthenticationSuccess)
-//            .and()
-//            .rememberMe()
-//            .rememberMeParameter("remember")
-//            .tokenRepository(this.tokenRepository())
-//            .tokenValiditySeconds(3600*24*7)
+            .and()
+            .rememberMe()
+            .rememberMeParameter("remember")
+            .tokenRepository(this.tokenRepository())
+            .tokenValiditySeconds(3600*24*7)
             .and()
             .csrf()
             .disable()
@@ -127,13 +127,13 @@ public class SecurityCofig {
         return source;
     }
 
-//    private PersistentTokenRepository tokenRepository(){
-//        JdbcTokenRepositoryImpl jdbcTokenRepository=new JdbcTokenRepositoryImpl();
-//        jdbcTokenRepository.setDataSource(dataSource);
-//        System.out.println("-------------------");
-//        jdbcTokenRepository.setCreateTableOnStartup(true);
-//        return jdbcTokenRepository;
-//    }
+    private PersistentTokenRepository tokenRepository(){
+        JdbcTokenRepositoryImpl jdbcTokenRepository=new JdbcTokenRepositoryImpl();
+        jdbcTokenRepository.setDataSource(dataSource);
+        System.out.println("-------------------");
+        jdbcTokenRepository.setCreateTableOnStartup(true);
+        return jdbcTokenRepository;
+    }
 
 
 
