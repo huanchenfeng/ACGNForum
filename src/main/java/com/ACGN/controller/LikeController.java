@@ -2,6 +2,7 @@ package com.ACGN.controller;
 
 import com.ACGN.Service.LikeService;
 import com.ACGN.entity.Article;
+import com.ACGN.entity.Likes;
 import com.ACGN.util.R;
 import com.ACGN.util.RUtils;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
@@ -19,9 +20,9 @@ public class LikeController {
     LikeService likeService;
     @PostMapping("/likes")
     @ResponseBody
-    public R myAricle(String type,String id) throws IOException {
+    public R myAricle(String type,String worksId) throws IOException {
 
-        int Id =Integer.parseInt(id);
+        int Id =Integer.parseInt(worksId);
         QueryWrapper queryWrapper=new QueryWrapper();
         queryWrapper.eq("works_id",Id);
         queryWrapper.eq("type",Integer.parseInt(type));
@@ -33,13 +34,21 @@ public class LikeController {
     @PostMapping("/addLike")
     @ResponseBody
     public R addLike(String userId,String worksId,String type) throws IOException {
+
         int Id =Integer.parseInt(userId);
         QueryWrapper queryWrapper=new QueryWrapper();
-        queryWrapper.eq("user_id",Id);
+        queryWrapper.eq("works_id",Id);
         queryWrapper.eq("type",Integer.parseInt(type));
-        queryWrapper.eq("worksId",Integer.parseInt(worksId));
-        int sum= likeService.count(queryWrapper);
-        return RUtils.success(sum);
+        if (likeService.getOne(queryWrapper)==null){
+        Likes likes=new Likes();
+        likes.setType(Integer.parseInt(type));
+        likes.setUserId(Id);
+        likes.setWorksId(Integer.parseInt(worksId));
+        likeService.save(likes);
+        return RUtils.success();}
+        else {
+            return RUtils.Err(400,"已点过赞");
+        }
     }
 
 
@@ -50,8 +59,8 @@ public class LikeController {
         QueryWrapper queryWrapper=new QueryWrapper();
         queryWrapper.eq("user_id",Id);
         queryWrapper.eq("type",Integer.parseInt(type));
-        queryWrapper.eq("worksId",Integer.parseInt(worksId));
-        if(likeService.getOne(queryWrapper).getLikeId()==null){
+        queryWrapper.eq("works_id",Integer.parseInt(worksId));
+        if(likeService.getOne(queryWrapper)==null){
             return RUtils.success(0);
         }
         return RUtils.success(1);

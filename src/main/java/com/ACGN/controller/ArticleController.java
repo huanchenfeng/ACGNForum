@@ -104,7 +104,6 @@ public class ArticleController {
             resultMap.put("article", article);
             resultMap.put("headerUrl", headerUrl);
             return RUtils.success(resultMap);
-
     }
 
     @PostMapping("/article")

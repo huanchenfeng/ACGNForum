@@ -17,6 +17,6 @@ public class Production {
 
     private String year;
 
-    private Integer type;
+    private String type;
 
 }
