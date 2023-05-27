@@ -33,4 +33,22 @@ public class ProductionController {
         page=productionService.page(page,queryWrapper);
         return RUtils.success(page);
     }
+    @PostMapping("/animation")
+    @ResponseBody
+    public R animation(int current){
+        QueryWrapper queryWrapper=new QueryWrapper();
+        Page<Production> page=new Page<>();
+        page.setCurrent(current);
+        page.setSize(10);
+        page=productionService.page(page,queryWrapper);
+        return RUtils.success(page);
+    }
+    @PostMapping("/animationDetail")
+    @ResponseBody
+    public R animationDetail(String id){
+        int productionId= Integer.parseInt(id);
+        Production production=productionService.getById(productionId);
+
+        return RUtils.success(production);
+    }
 }

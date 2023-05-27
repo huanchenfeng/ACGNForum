@@ -57,7 +57,7 @@ public class CommentController {
         QueryWrapper queryWrapper=new QueryWrapper();
         queryWrapper.eq("discusspost_id",Id);
         queryWrapper.eq("type",Integer.parseInt(type));
-        int sum= commentService.count();
+        int sum= commentService.count(queryWrapper);
         return RUtils.success(sum);
     }
 }

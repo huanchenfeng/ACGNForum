@@ -19,4 +19,6 @@ public class Production {
 
     private String type;
 
+    private double score;
+
 }

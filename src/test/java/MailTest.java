@@ -36,27 +36,27 @@ public class MailTest {
         /**
          * 置顶帖的数量
          */
-        int sum=0;
-        QueryWrapper queryWrapperOne=new QueryWrapper();
-        queryWrapperOne.eq("type",1);
-        queryWrapperOne.eq("status",1);
-        queryWrapperOne.orderByDesc("create_time");
-        HashMap map=new HashMap();
-        List<DiscussPost>list=discussPostService.list(queryWrapperOne);
-        sum=list.size();
-        QueryWrapper queryWrapperTwo=new QueryWrapper();
-        queryWrapperTwo.eq("type",1);
-        queryWrapperTwo.eq("status",1);
-        queryWrapperTwo.orderByDesc("status");
-        Page<DiscussPost> pageTwo=new Page<>();
-        pageTwo.setCurrent(1);
-        pageTwo.setSize(10-sum);
-        classifiedPage=discussPostService.page(pageTwo,queryWrapperTwo);
-        map.put("normal",classifiedPage);
-        map.put("top",list);
-        System.out.println(map.toString());
-        System.out.println(classifiedPage.toString());
-//        mailClient.sendMail("******@******.edu.cn","TEST","Welcome.");
+//        int sum=0;
+//        QueryWrapper queryWrapperOne=new QueryWrapper();
+//        queryWrapperOne.eq("type",1);
+//        queryWrapperOne.eq("status",1);
+//        queryWrapperOne.orderByDesc("create_time");
+//        HashMap map=new HashMap();
+//        List<DiscussPost>list=discussPostService.list(queryWrapperOne);
+//        sum=list.size();
+//        QueryWrapper queryWrapperTwo=new QueryWrapper();
+//        queryWrapperTwo.eq("type",1);
+//        queryWrapperTwo.eq("status",1);
+//        queryWrapperTwo.orderByDesc("status");
+//        Page<DiscussPost> pageTwo=new Page<>();
+//        pageTwo.setCurrent(1);
+//        pageTwo.setSize(10-sum);
+//        classifiedPage=discussPostService.page(pageTwo,queryWrapperTwo);
+//        map.put("normal",classifiedPage);
+//        map.put("top",list);
+//        System.out.println(map.toString());
+//        System.out.println(classifiedPage.toString());
+////        mailClient.sendMail("******@******.edu.cn","TEST","Welcome.");
     }
 
 
