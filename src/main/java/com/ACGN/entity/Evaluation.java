@@ -9,7 +9,7 @@ public class Evaluation {
 
     private Integer worksId;
 
-    private Integer scores;
+    private Double scores;
 
     private String content;
 

@@ -91,13 +91,13 @@ public class DiscussPostController {
 
     @PostMapping("/addDiscussPost")
     @ResponseBody
-    public R addDiscussPost(@RequestBody DiscussPostDto discussPostDto) {
+    public R addDiscussPost( DiscussPostDto discussPostDto) {
         DiscussPost discussPost=new DiscussPost();
         System.out.println(discussPostDto.toString());
-        if(discussPostDto.getUserId()==0||discussPostDto.getContent()==null||discussPostDto.getTitle()==null){
+        if(Integer.parseInt(discussPostDto.getUserId())==0||discussPostDto.getContent()==null||discussPostDto.getTitle()==null){
             return RUtils.Err(400,"数据为空");
         }
-        discussPost.setUserId(discussPostDto.getUserId());
+        discussPost.setUserId(Integer.parseInt(discussPostDto.getUserId()));
         discussPost.setUsername(userService.getById(discussPost.getUserId()).getUsername());
         discussPost.setContent(discussPostDto.getContent());
         discussPost.setTitle(discussPostDto.getTitle());
@@ -105,7 +105,7 @@ public class DiscussPostController {
         discussPost.setCreateTime(new Date());
         discussPost.setType(0);
         discussPost.setStatus(0);
-        discussPost.setDiscusspostType(discussPostDto.getDiscusspostType());
+        discussPost.setDiscusspostType(Integer.parseInt(discussPostDto.getDiscusspostType()));
         discussPost.setScore(0);
         discussPost.setHeaderUrl(userService.getById(discussPost.getUserId()).getHeaderUrl());
         discussPostService.save(discussPost);

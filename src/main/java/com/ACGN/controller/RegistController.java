@@ -44,6 +44,7 @@ public class RegistController {
             user.setActivationCode("1111");
             user.setHeaderUrl("http://localhost:8080/ACGN/images/de.jpg");
             user.setCreateTime(new Date());
+            user.setEmail(user.getEmail());
         if (userService.save(user)){
             return RUtils.success();}
         return RUtils.Err(Renum.USER_IS_EXISTS.getCode(),Renum.USER_IS_EXISTS.getMsg());
@@ -108,13 +109,11 @@ public class RegistController {
     public R validateEmail(@Pattern(regexp = EMAIL_REGEX) String email,HttpSession session){
         System.out.println(email);
         if(authorizeService.sendValidateEmail(email,session.getId())){
-
             return RUtils.success();
         }
         else{
             return RUtils.Err(500,"验证码错误");
         }
-
     }
     }
 

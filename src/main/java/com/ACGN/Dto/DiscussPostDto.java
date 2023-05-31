@@ -4,8 +4,8 @@ import lombok.Data;
 
 @Data
 public class DiscussPostDto {
-    private int userId;
+    private String userId;
     private String title;
     private String content;
-    private int discusspostType;
+    private String discusspostType;
 }

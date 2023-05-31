@@ -3,6 +3,7 @@ package com.ACGN.controller;
 import com.ACGN.Dto.UserInfoDto;
 import com.ACGN.Service.ArticleService;
 import com.ACGN.Service.DiscussPostService;
+import com.ACGN.Service.LikeService;
 import com.ACGN.Service.UserService;
 import com.ACGN.entity.Article;
 import com.ACGN.entity.DiscussPost;
@@ -36,6 +37,8 @@ public class MyInfoController {
     private ArticleService articleService;
     @Autowired
     private DiscussPostService discussPostService;
+    @Autowired
+    private LikeService likeService;
     @PostMapping("/myInfo")
     @ResponseBody
     public R selectMyInfo(String userId) throws IOException {
@@ -53,6 +56,7 @@ public class MyInfoController {
         userInfo.setSignature(user.getSignature());
         userInfo.setAuthor(user.getAuthor());
         userInfo.setHeaderUrl(user.getHeaderUrl());
+        userInfo.setType(user.getType());
         return RUtils.success(userInfo);
     }
 
@@ -87,7 +91,23 @@ public class MyInfoController {
         updateWrapper.set("signature",signature);
         updateWrapper.eq("user_id",Integer.parseInt(userId));
         userService.update(updateWrapper);
-
         return RUtils.success();
+    }
+    @PostMapping("/myLike")
+    @ResponseBody
+    public R myLike(String userId) throws IOException {
+        QueryWrapper queryWrapper=new QueryWrapper();
+        queryWrapper.eq("user_Id",Integer.parseInt(userId));
+        queryWrapper.eq("type",2);
+        int sum=likeService.count(queryWrapper);
+        return RUtils.success(sum);
+    }
+    @PostMapping("/Audit")
+    @ResponseBody
+    public R myAudit() throws IOException {
+        QueryWrapper queryWrapper=new QueryWrapper();
+        queryWrapper.eq("status",1);
+        List<Article> articleList= articleService.list(queryWrapper);
+        return RUtils.success(articleList);
     }
 }

@@ -25,4 +25,6 @@ public class UserInfoDto {
     private String createTime;
 
     private int author;
+
+    private int type;
 }

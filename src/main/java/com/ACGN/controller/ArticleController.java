@@ -77,7 +77,7 @@ public class ArticleController {
         article.setTitle(title);
         article.setCreateTime(new Date());
         article.setType(Integer.parseInt(type));
-        article.setStatus(0);
+        article.setStatus(1);
         article.setScore(0);
         article.setHeaderUrl("http://localhost:8080/ACGN/images/"+name);
         articleService.save(article);
@@ -161,8 +161,26 @@ public class ArticleController {
         return RUtils.success(commentDtoPage);
     }
 
-
-
+    @PostMapping("/toPass")
+    @ResponseBody
+    public R toPass(String id) {
+        int ArticleId=Integer.parseInt(id);
+        UpdateWrapper updateWrapper=new UpdateWrapper();
+        updateWrapper.eq("article_id",ArticleId);
+        updateWrapper.set("status",0);
+        articleService.update(updateWrapper);
+        return RUtils.success();
+    }
+    @PostMapping("/unPass")
+    @ResponseBody
+    public R unPass(String id) {
+        int ArticleId=Integer.parseInt(id);
+        UpdateWrapper updateWrapper=new UpdateWrapper();
+        updateWrapper.eq("article_id",ArticleId);
+        updateWrapper.set("status",2);
+        articleService.update(updateWrapper);
+        return RUtils.success();
+    }
     public List<CommentDto> buildCommentList(List<Comment> comments) {
         List<CommentDto> result = new ArrayList<>();
 
@@ -223,7 +241,6 @@ public class ArticleController {
         commentDto.setChildren(new ArrayList<>());
         commentDto.setTopType(comment.getTopType());
         commentDto.setHeaderUrl(comment.getHeaderUrl());
-
         return commentDto;
     }
     public String getSavePath() {

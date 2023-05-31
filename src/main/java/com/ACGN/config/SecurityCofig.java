@@ -130,7 +130,6 @@ public class SecurityCofig {
     private PersistentTokenRepository tokenRepository(){
         JdbcTokenRepositoryImpl jdbcTokenRepository=new JdbcTokenRepositoryImpl();
         jdbcTokenRepository.setDataSource(dataSource);
-        System.out.println("-------------------");
         jdbcTokenRepository.setCreateTableOnStartup(true);
         return jdbcTokenRepository;
     }
