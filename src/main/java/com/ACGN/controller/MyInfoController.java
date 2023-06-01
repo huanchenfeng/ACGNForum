@@ -110,4 +110,13 @@ public class MyInfoController {
         List<Article> articleList= articleService.list(queryWrapper);
         return RUtils.success(articleList);
     }
+
+    @PostMapping("/myDeleteArticle")
+    @ResponseBody
+    public R myDeleteArticle(String articleId) throws IOException {
+        QueryWrapper queryWrapper=new QueryWrapper();
+        queryWrapper.eq("article_id",Integer.parseInt(articleId));
+        articleService.remove(queryWrapper);
+        return RUtils.success();
+    }
 }

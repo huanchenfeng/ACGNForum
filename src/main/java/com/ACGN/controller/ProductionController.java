@@ -39,7 +39,7 @@ public class ProductionController {
         queryWrapper.eq("type",type);
         Page<Production> page=new Page<>();
         page.setCurrent(current);
-        page.setSize(10);
+        page.setSize(8);
         page=productionService.page(page,queryWrapper);
         return RUtils.success(page);
     }
