@@ -45,6 +45,8 @@ public class RegistController {
             user.setHeaderUrl("http://localhost:8080/ACGN/images/de.jpg");
             user.setCreateTime(new Date());
             user.setEmail(user.getEmail());
+            user.setType(0);
+            user.setStatus(0);
         if (userService.save(user)){
             return RUtils.success();}
         return RUtils.Err(Renum.USER_IS_EXISTS.getCode(),Renum.USER_IS_EXISTS.getMsg());
